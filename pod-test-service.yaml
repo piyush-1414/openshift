@@ -4,6 +4,7 @@ metadata:
   name: hello-world-pod
   labels:
     app: hello-world-pod
+  namespace: test-service
 spec:
   containers:
   - env:
