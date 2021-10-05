@@ -44,7 +44,9 @@ spec:
           - /bin/sh
           - '-c'      
           - echo "entered post hook" & sleep 500
---
+          
+---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -57,7 +59,9 @@ spec:
     targetPort: 3306
   selector:
     tier: db      
---
+
+---
+
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -73,7 +77,9 @@ spec:
   hostPath:
     path: /mnt/db
     type: DirectoryOrCreate
+
 ---
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
