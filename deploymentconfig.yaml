@@ -1,0 +1,32 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: hello-openshift-deployment
+  namespace: deploymentconfig-openshift
+spec:
+  replicas: 3
+  selector:    
+    name: hello-openshift-deployment
+  template:    
+    metadata:
+      labels:  
+        name: hello-openshift-deployment
+    spec:
+      containers:
+      - image: openshift/hello-openshift
+        name: hello-openshift-deployment
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+  triggers:
+  - type: ConfigChange 
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - hello-openshift-deployment
+      from:
+        kind: ImageStreamTag
+        name: hello-openshift-deployment:latest
+    type: ImageChange  
+  strategy:
+    type: Rolling
