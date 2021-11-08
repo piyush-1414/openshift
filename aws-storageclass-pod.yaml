@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: aws-storageclass-pvc
+spec:
+  storageClassName: aws-storageclass
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: aws-storageclass-pvc-pod
+spec:
+  volumes:
+    - name: aws-storageclass-storage
+      persistentVolumeClaim:
+        claimName: aws-storageclass-pvc
+  containers:
+    - name: aws-storageclass-pvc-pod
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: aws-storageclass-storage
